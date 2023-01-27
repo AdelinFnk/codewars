@@ -10,6 +10,6 @@
 // ["a", "b", "c"] --> ["1: a", "2: b", "3: c"]
 
 const number=function(array){
-    //your awesome code here
+    //use array method map and concat the parameters together
     return array.map((elem, idx)=> (idx + 1) + ':' + elem)
   }
