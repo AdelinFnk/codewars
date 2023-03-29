@@ -1,21 +1,36 @@
-// You probably know the "like" system from Facebook and other pages. People can "like" blog posts, pictures or other items. We want to create the text that should be displayed next to such an item.
+// Create a function that returns the name of the winner in a fight between two fighters.
 
-// Implement the function which takes an array containing the names of people that like an item. It must return the display text as shown in the examples:
+// Each fighter takes turns attacking the other and whoever kills the other first is victorious. Death is defined as having health <= 0.
 
-// []                                -->  "no one likes this"
-// ["Peter"]                         -->  "Peter likes this"
-// ["Jacob", "Alex"]                 -->  "Jacob and Alex like this"
-// ["Max", "John", "Mark"]           -->  "Max, John and Mark like this"
-// ["Alex", "Jacob", "Mark", "Max"]  -->  "Alex, Jacob and 2 others like this"
-// Note: For 4 or more names, the number in "and 2 others" simply increases.
+// Each fighter will be a Fighter object/instance. See the Fighter class below in your chosen language.
 
-function likes(names) {
-  names = names || [];
-  switch(names.length){
-    case 0: return 'no one likes this'; break;
-    case 1: return names[0] + ' likes this'; break;
-    case 2: return names[0] + ' and ' + names[1] + ' like this'; break;
-    case 3: return names[0] + ', ' + names[1] + ' and ' + names[2] + ' like this'; break;
-    default: return names[0] + ', ' + names[1] + ' and ' + (names.length - 2) + ' others like this';
+// Both health and damagePerAttack (damage_per_attack for python) will be integers larger than 0. You can mutate the Fighter objects.
+
+// Your function also receives a third argument, a string, with the name of the fighter that attacks first.
+
+// Example:
+//   declare_winner(Fighter("Lew", 10, 2), Fighter("Harry", 5, 4), "Lew") => "Lew"
+  
+//   Lew attacks Harry; Harry now has 3 health.
+//   Harry attacks Lew; Lew now has 6 health.
+//   Lew attacks Harry; Harry now has 1 health.
+//   Harry attacks Lew; Lew now has 2 health.
+//   Lew attacks Harry: Harry now has -1 health and is dead. Lew wins.
+// function Fighter(name, health, damagePerAttack) {
+//         this.name = name;
+//         this.health = health;
+//         this.damagePerAttack = damagePerAttack;
+//         this.toString = function() { return this.name; }
+// }
+
+function declareWinner(fighter1, fighter2, firstAttacker) {
+  let fac1 = Math.ceil( fighter1.health / fighter2.damagePerAttack );
+  let fac2 = Math.ceil( fighter2.health / fighter1.damagePerAttack );
+  if(fac1 < fac2) {
+    return fighter2.name;
+  } else if(fac2 < fac1) {
+    return fighter1.name;
+  } else {
+    return firstAttacker;
   }
 }
